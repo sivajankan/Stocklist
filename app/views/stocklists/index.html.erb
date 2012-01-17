@@ -1,22 +1,20 @@
 <h1>Listing stocklists</h1>
-<table title='stocklist' class="tablesorter" cellspacing="1" width="500">
+<table id='sctable' title='stocklist' class="tablesorter" cellspacing="1" width="500">
  <thead>
   <tr>
     <th width="220">Name</th>
     <th width="80">Code</th>
     <th width="80">Sector</th>
-    <th width="120" colspan="3">Actions</th>
+    <th width="120">Actions</th>
   </tr>
  </thead>
 
 <% @stocklists.each do |stocklist| %>
   <tr>
-    <td><%= stocklist.name %></td>
+    <td><%= link_to stocklist.name, stocklist%></td>
     <td><%= stocklist.code %></td>
     <td><%= stocklist.sector %></td>
-    <td><%= link_to 'Show', stocklist %></td>
-    <td><%= link_to 'Edit', edit_stocklist_path(stocklist) %></td>
-    <td><%= link_to 'Destroy', stocklist, confirm: 'Are you sure?', method: :delete %></td>
+    <td align='center'><%= link_to image_tag('edit.jpg', :alt => 'Edit'), edit_stocklist_path(stocklist) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to image_tag('delete.png', :alt => 'Delete'), stocklist, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

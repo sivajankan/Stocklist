@@ -6,14 +6,24 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <script>
-  $(document).ready(function() 
+    //Table sorter
+    $(document).ready(function() 
     { 
         $("table").tablesorter( {sortList: [[0,0],[1,0]]}); 
     }); 
+ 
+ 	//Table row highlight
+ 	$(document).ready(function(){
+		$('tr').hover(function(){
+			$(this).children().addClass('rowhighlight');
+		},function(){
+			$(this).children().removeClass('rowhighlight');
+		});
+     });
   </script>
 </head>
 <body>
-
+	
 <%= yield %>
 
 </body>

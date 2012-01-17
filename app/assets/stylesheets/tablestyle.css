@@ -38,3 +38,25 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 	background-color: #8dbdd8;
 }
 
+/* border */
+table {
+    border-top: double;
+    border-bottom: double;
+    border-right: double;
+    border-left: double;
+}
+thead, tbody, tfoot {
+    border-top: solid;
+    border-bottom: solid
+}
+tr {
+	border-bottom: thin dotted;
+}
+colgroup {
+    border-bottom: solid
+}
+
+/* highlight */
+.rowhighlight {
+        background-color: #EEEEED !important;
+}
