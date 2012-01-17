@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  code: MyString
+  value: 
+  pe: 
+  eps: 
+
+two:
+  name: MyString
+  code: MyString
+  value: 
+  pe: 
+  eps: 

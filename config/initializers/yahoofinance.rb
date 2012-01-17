@@ -1,0 +1,56 @@
+def YahooFinance::Testing 
+  puts "testing"
+end
+
+YahooFinance::EXTENDEDHASH = {
+    "s" => [ "symbol", "val" ],
+    "l1" => [ "lastTrade", "val.to_f" ],
+    "n" => [ "name", "val" ],
+    "w" => [ "weeks52Range", "val" ],
+    "j5" => [ "weeks52ChangeFromLow", "val.to_f" ],
+    "j6" => [ "weeks52ChangePercentFromLow", "val" ],
+    "k4" => [ "weeks52ChangeFromHigh", "val.to_f" ],
+    "k5" => [ "weeks52ChangePercentFromHigh", "val" ],
+    "e" => [ "earningsPerShare", "val.to_f" ],
+    "r" => [ "peRatio", "val.to_f" ],
+    "s7" => [ "shortRatio", "val" ],
+    "r1" => [ "dividendPayDate", "val" ],
+    "q" => [ "exDividendDate", "val" ],
+    "d" => [ "dividendPerShare", "convert(val)" ],
+    "y" => [ "dividendYield", "convert(val)" ],
+    "j1" => [ "marketCap", "convert(val)" ],
+    "t8" => [ "oneYearTargetPrice", "val" ],
+    "e7" => [ "epsEstimateCurrentYear", "val" ],
+    "e8" => [ "epsEstimateNextYear", "val" ],
+    "e9" => [ "epsEstimateNextQuarter", "val" ],
+    "r6" => [ "pricePerEPSEstimateCurrentYear", "val" ],
+    "r7" => [ "pricePerEPSEstimateNextYear", "val" ],
+    "r5" => [ "pegRatio", "val.to_f" ],
+    "b4" => [ "bookValue", "val.to_f" ],
+    "p6" => [ "pricePerBook", "val.to_f" ],
+    "p5" => [ "pricePerSales", "val.to_f" ],
+    "j4" => [ "ebitda", "val" ],
+    "m3" => [ "movingAve50days", "val" ],
+    "m7" => [ "movingAve50daysChangeFrom", "val" ],
+    "m8" => [ "movingAve50daysChangePercentFrom", "val" ],
+    "m4" => [ "movingAve200days", "val" ],
+    "m5" => [ "movingAve200daysChangeFrom", "val" ],
+    "m6" => [ "movingAve200daysChangePercentFrom", "val" ],
+    "s1" => [ "sharesOwned", "val" ],
+    "p1" => [ "pricePaid", "val" ],
+    "c3" => [ "commission", "val" ],
+    "v1" => [ "holdingsValue", "val" ],
+    "w1" => [ "dayValueChange", "val" ],
+    "g1" => [ "holdingsGainPercent", "val" ],
+    "g4" => [ "holdingsGain", "val" ],
+    "d2" => [ "tradeDate", "val" ],
+    "g3" => [ "annualizedGain", "val" ], 
+    "l2" => [ "highLimit", "val" ],
+    "l3" => [ "lowLimit", "val" ],
+    "n4" => [ "notes", "val" ],
+    "x" => [ "stockExchange", "val" ]
+# This returns an integer like "1,000,000".
+# The CVS parser gets confused by this
+# so I've removed it for the time being.
+#    "f6" => [ "floatShares", "val" ],
+  }
