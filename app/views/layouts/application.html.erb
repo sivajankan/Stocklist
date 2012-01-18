@@ -9,17 +9,26 @@
     //Table sorter
     $(document).ready(function() 
     { 
-        $("table").tablesorter( {sortList: [[0,0],[1,0]]}); 
+        $('table').tablesorter( {sortList: [[0,0],[1,0]]}); 
     }); 
- 
+    
  	//Table row highlight
  	$(document).ready(function(){
-		$('tr').hover(function(){
+		$('tbody tr').hover(function(){
 			$(this).children().addClass('rowhighlight');
 		},function(){
 			$(this).children().removeClass('rowhighlight');
 		});
      });
+     
+    //Table scroll
+    $(document).ready(function() 
+    {       	 
+        $("table.scroll").createScrollableTable({
+	            width: '800x',
+	            height: '400px'
+	    });
+    });      
   </script>
 </head>
 <body>

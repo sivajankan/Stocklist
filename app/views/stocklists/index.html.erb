@@ -1,5 +1,6 @@
-<h1>Listing stocklists</h1>
-<table id='sctable' title='stocklist' class="tablesorter" cellspacing="1" width="500">
+<h1>Stock Enlisted</h1>
+<div style="width: 800px; margin: 10px auto; ">
+<table id='sctable' title='stocklist' class="tablesorter stocktable tbl1 scroll" cellspacing="1" width="600px">
  <thead>
   <tr>
     <th width="220">Name</th>
@@ -9,6 +10,7 @@
   </tr>
  </thead>
 
+ <tbody>
 <% @stocklists.each do |stocklist| %>
   <tr>
     <td><%= link_to stocklist.name, stocklist%></td>
@@ -17,8 +19,10 @@
     <td align='center'><%= link_to image_tag('edit.jpg', :alt => 'Edit'), edit_stocklist_path(stocklist) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to image_tag('delete.png', :alt => 'Delete'), stocklist, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
+ </tbody>
 </table>
 
+</div>
 <br />
 
 <%= link_to 'New Stocklist', new_stocklist_path %>
