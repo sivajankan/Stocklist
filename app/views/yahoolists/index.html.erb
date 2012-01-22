@@ -1,18 +1,18 @@
 <h1>Stock Trade Info</h1>
-<div style="width: 800px; margin: 10px auto;">
-<table id='sctable' title="stocklist" class="tbl1 tablrsorter scroll stocktable" cellspacing="1" width='600px'>
+<div style="width: 1300px; margin: 10px;padding-left: 10px">
+<table id='sctable' title="stocklist" class="tbl1 tablrsorter scroll stocktable" cellspacing="1" width='1300px'>
  <thead>
   <tr>
-    <th width='200'>Company Name</th>
-    <th width='80'>Symbol</th>
-    <th width='80'>Sector</th>
-    <th width='80'>Last Trade</th>
+    <th width='150px'>Company Name</th>
+    <th width='60px'>Symbol</th>
+    <th width='60px'>Sector</th>
+    <th width='70px'>Last Trade</th>
     <th>PE</th>
     <th>EPS</th>
     <th>PEG Ratio</th>
     <th>Book Value</th>
     <th>Price Per Book</th>
-    <th>52 Weeks Low - High</th>
+    <th width='120px'>52 Weeks Low - High</th>
     <th>Dividend Yield</th>
     <th>Dividend Per Share</th>
     <th>Moving Avg 50 Days</th>
@@ -26,7 +26,7 @@
 <% extstocks.each do |symbol, qt| %>
   <tr>
   	<td align = 'right'><%= qt.name %></td>
-    <td align = 'center'><%= symbol %></td>
+    <td align = 'center'><%= link_to("#{symbol}","http://www.google.com/finance?q=#{symbol}", {:target => "_blank"}) %></td>
     <td align = 'center'><%= sectors[symbol] %></td>
     <td align = 'right'><%= qt.lastTrade %></td>
     <td><%= qt.peRatio %></td>
