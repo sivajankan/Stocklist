@@ -20,7 +20,25 @@
     <th>EBITDA</th>
   </tr>
  </thead>
-
+ <tfoot>
+  <tr>
+    <th width='150px'>Company Name</th>
+    <th width='60px'>Symbol</th>
+    <th width='60px'>Sector</th>
+    <th width='70px'>Last Trade</th>
+    <th>PE</th>
+    <th>EPS</th>
+    <th>PEG Ratio</th>
+    <th>Book Value</th>
+    <th>Price Per Book</th>
+    <th width='120px'>52 Weeks Low - High</th>
+    <th>Dividend Yield</th>
+    <th>Dividend Per Share</th>
+    <th>Moving Avg 50 Days</th>
+    <th>Moving Avg 200 Days</th>
+    <th>EBITDA</th>
+  </tr>
+ </tfoot>
 <% extstocks = Yahoolist.allstocks() %>
 <% sectors = Yahoolist.sectors %>
 <% extstocks.each do |symbol, qt| %>
