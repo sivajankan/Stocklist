@@ -14,7 +14,7 @@
 <% @stocklists.each do |stocklist| %>
   <tr>
     <td><%= link_to stocklist.name, stocklist%></td>
-    <td><%= stocklist.code %></td>
+    <td><a class='iframe' href="http://www.yahoo.com"><%= stocklist.code %></a></td>
     <td><%= stocklist.sector %></td>
     <td align='center'><%= link_to image_tag('edit.jpg', :alt => 'Edit'), edit_stocklist_path(stocklist) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to image_tag('delete.png', :alt => 'Delete'), stocklist, confirm: 'Are you sure?', method: :delete %></td>
   </tr>

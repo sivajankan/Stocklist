@@ -22,19 +22,15 @@
      });
      
     //Table scroll
-    /*
-    $(document).ready(function() 
-    {       	
-        $("table.scroll").createScrollableTable({
-	            width: '800x',
-	            height: '400px'
-	    });
-	    
-	    var tbl = $("#sctable");
-    	newtablesorter(tbl);
-    }); 
-    */
- 
+	jQuery(document).ready(function($)
+	{
+		$('#sctable').tableScroll({height:600});
+	});
+	
+	$(window).resize(function() {
+		var h = $(window).height() - 200;
+		$(".tablescroll_wrapper").height(h);
+	});
   </script>
 </head>
 <body>
