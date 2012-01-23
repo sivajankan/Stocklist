@@ -40,7 +40,7 @@
   </tr>
  </tfoot>
 <% extstocks = Yahoolist.allstocks() %>
-<% sectors = Yahoolist.sectors %>
+<% sectors = Yahoolist.sectorindustry %>
 <% extstocks.each do |symbol, qt| %>
   <tr>
   	<td align = 'right'><%= qt.name %></td>

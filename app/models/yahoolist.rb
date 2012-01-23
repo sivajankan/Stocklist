@@ -71,4 +71,21 @@ require 'yahoofinance'
     end
     sectors
   end
+  
+  def self.industries
+    industry = Hash.new(0)
+    Stocklist.industryonly.each do |list|
+      industry[list.symbol] = list.industry
+    end
+    industry
+  end
+
+
+  def self.sectorindustry
+    sectorindustry = Hash.new(0)
+    Stocklist.sectorindustry.each do |list|
+      sectorindustry[list.symbol] = "#{list.sector}-#{list.industry}"
+    end
+    sectorindustry
+  end
 end
