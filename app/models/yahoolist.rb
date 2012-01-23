@@ -1,14 +1,14 @@
 class Yahoolist < ActiveRecord::Base
 require 'yahoofinance'
 
-  def self.allcodes
-    @stockcodes ||= Stocklist.codesonly.map {|element| "#{element['code']}"}.join(',')
+  def self.allsymbols
+    @stockcodes ||= Stocklist.symbolsonly.map {|element| "#{element['symbol']}"}.join(',')
   end
   
   def self.stdstocks (sort)
      puts "sort info: #{sort}"
      quote_type = YahooFinance::StandardQuote
-     quote_symbols = allcodes
+     quote_symbols = allsymbols
      stdstocks = YahooFinance::get_quotes( quote_type, quote_symbols )
      if (sort == "symbol")
        stdstocks = Hash[stdstocks.sort]
@@ -22,7 +22,9 @@ require 'yahoofinance'
   
   def self.allstocks 
      quote_type = YahooFinance::ExtendedQuote
-     quote_symbols = allcodes
+     quote_symbols = allsymbols
+     quote_symbols.gsub(/\s+/, "").strip
+     puts "quote_symbols" + quote_symbols
      allstocks = YahooFinance::get_quotes( quote_type, quote_symbols )
   end
   
@@ -32,7 +34,7 @@ require 'yahoofinance'
      #YahooFinance::get_quotes( quote_type, quote_symbols ) 
      puts "sort info: #{sort}"
      quote_type = YahooFinance::ExtendedQuote
-     quote_symbols = allcodes
+     quote_symbols = allsymbols
      stdstocks = YahooFinance::get_quotes( quote_type, quote_symbols )
      if (sort == "symbol")
        stdstocks = Hash[stdstocks.sort]
@@ -64,8 +66,8 @@ require 'yahoofinance'
   
   def self.sectors
     sectors = Hash.new(0)
-    Stocklist.sectoronly.each do |code|
-      sectors[code.code] = code.sector
+    Stocklist.sectoronly.each do |list|
+      sectors[list.symbol] = list.sector
     end
     sectors
   end

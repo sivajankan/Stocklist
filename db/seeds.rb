@@ -12,9 +12,18 @@ require 'csv'
 csv = CSV.parse(File.read("#{Rails.root}/db/NASDAQ_companylist.csv"), :headers => true)
 csv.each do |row| 
   # puts row["Symbol"] + ", " + row["Name"] + ", " + row["MarketCap"] + ", " + row["IPOyear"] + ", " + row["Sector"] + "-" + row["industry"]
+  stock = Stocklist.find_or_create_by_symbol(row["Symbol"])
+  stock.symbol = row["Symbol"]
+  stock.name = row["Name"]
+  stock.sector = row["Sector"]
+  stock.industry = row["industry"]
+  stock.marketcap = row["MarketCap"]
+  stock.ipoyear = row["IPOyear"]
+  stock.stockexchange = "NASDAQ"
+  stock.save!
 end
 
-
+=begin
 open("#{Rails.root}/db/NA.txt") do |roles|
   roles.read.each_line do |r|
     name,priority = r.chomp.split("|")
@@ -26,3 +35,4 @@ open("#{Rails.root}/db/NA.txt") do |roles|
     role.save
   end
 end
+=end

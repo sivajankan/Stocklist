@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120122234827) do
+ActiveRecord::Schema.define(:version => 20120123004023) do
 
   create_table "stocklists", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20120122234827) do
     t.string   "industry"
     t.string   "marketcap"
     t.date     "ipoyear"
+    t.string   "stockexchange"
   end
 
   create_table "yahoolists", :force => true do |t|

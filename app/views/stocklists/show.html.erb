@@ -7,12 +7,27 @@
 
 <p>
   <b>Code:</b>
-  <%= @stocklist.code %>
+  <%= @stocklist.symbol %>
 </p>
 
 <p>
   <b>Sector:</b>
   <%= @stocklist.sector %>
+</p>
+
+<p>
+  <b>Industry:</b>
+  <%= @stocklist.industry %>
+</p>
+
+<p>
+  <b>Market Cap:</b>
+  <%= @stocklist.marketcap %>
+</p>
+
+<p>
+  <b>IPO Year:</b>
+  <%= @stocklist.ipoyear %>
 </p>
 
 <%= link_to 'Edit', edit_stocklist_path(@stocklist) %> |

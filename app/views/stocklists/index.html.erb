@@ -1,21 +1,40 @@
 <h1>Stock Enlisted</h1>
-<div style="width: 800px; margin: 10px auto; ">
-<table id='sctable' title='stocklist' class="tablesorter stocktable tbl1 scroll" cellspacing="1" width="600px">
+<div style="width: 1000px; margin: 10px auto; ">
+<table id='sctable' title='stocklist' class="tablesorter stocktable tbl1 scroll" cellspacing="1" width="1000px">
  <thead>
   <tr>
     <th width="220">Name</th>
-    <th width="80">Code</th>
+    <th width="80">Symbol</th>
     <th width="80">Sector</th>
+    <th width="80">Industry</th>
+    <th width="80">Market Cap</th>
+    <th width="80">IPO Year</th>
+    <th width="80">StockExch</th>
     <th width="120">Actions</th>
   </tr>
  </thead>
-
+ <tfoot>
+  <tr>
+    <th width="220">Name</th>
+    <th width="80">Symbol</th>
+    <th width="80">Sector</th>
+    <th width="80">Industry</th>
+    <th width="80">Market Cap</th>
+    <th width="80">IPO Year</th>
+    <th width="80">StockExch</th>
+    <th width="120">Actions</th>
+  </tr>
+ </tfoot>
  <tbody>
 <% @stocklists.each do |stocklist| %>
   <tr>
     <td><%= link_to stocklist.name, stocklist%></td>
-    <td><%= link_to("#{stocklist.code}","http://www.google.com/finance?q=#{stocklist.code}", {:target => "_blank"}) %></a></td>
+    <td><%= link_to("#{stocklist.symbol}","http://www.google.com/finance?q=#{stocklist.symbol}", {:target => "_blank"}) %></a></td>
     <td><%= stocklist.sector %></td>
+    <td><%= stocklist.industry %></td>
+    <td><%= stocklist.marketcap %></td>
+    <td><%= stocklist.ipoyear %></td>
+    <td><%= stocklist.stockexchange %></td>
     <td align='center'><%= link_to image_tag('edit.jpg', :alt => 'Edit'), edit_stocklist_path(stocklist) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to image_tag('delete.png', :alt => 'Delete'), stocklist, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>

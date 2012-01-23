@@ -1,7 +1,7 @@
 class Stocklist < ActiveRecord::Base
   require 'yahoofinance'
 
-  scope :symbolsonly, select('symbol')
+  scope :symbolsonly, select('symbol').where("symbol like 'Z%'")
   scope :sectoronly, select('symbol, sector')
   scope :sector, lambda { where("sector =", sector) }
 
