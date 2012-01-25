@@ -1,5 +1,9 @@
 <h1>Stock Enlisted</h1>
 <div style="width: 1000px; margin: 10px auto; ">
+Exchange<%= select("stockexchange", "stockexchange", Stocklist.exchangelist.map {|s| s.stockexchange}) %>
+Sector<%= select("stocksector", "sector", Stocklist.sectorlist.map {|s| s.sector}) %>
+Industry<%= select("stockindustry", "industry", Stocklist.industrylist.map {|s| s.industry}) %>
+<br />
 <table id='sctable' title='stocklist' class="tablesorter stocktable tbl1 scroll" cellspacing="1" width="1000px">
  <thead>
   <tr>
@@ -26,7 +30,9 @@
   </tr>
  </tfoot>
  <tbody>
-<% @stocklists.each do |stocklist| %>
+<% #@stocklists.each do |stocklist| 
+%>
+<% Stocklist.limit(100).each do |stocklist| %>
   <tr>
     <td><%= link_to stocklist.name, stocklist%></td>
     <td><%= link_to("#{stocklist.symbol}","http://www.google.com/finance?q=#{stocklist.symbol}", {:target => "_blank"}) %></a></td>

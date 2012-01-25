@@ -1,5 +1,5 @@
 class Stocklist < ActiveRecord::Base
-  require 'yahoofinance'
+ # require 'yahoofinance'
 
   scope :symbolsonly, select('symbol').where("symbol like 'B%'")
   scope :sectoronly, select('symbol, sector')
@@ -7,7 +7,9 @@ class Stocklist < ActiveRecord::Base
   scope :sectorindustry, select('symbol, sector, industry')
   scope :sector, lambda { where("sector =", sector) }
   scope :industry, lambda { where("industry=", industry)}
-
+  scope :sectorlist, select('sector').group('sector')
+  scope :industrylist, select('industry').group('industry')
+  scope :exchangelist, select('stockexchange').group('stockexchange')
 
 
 =begin  
