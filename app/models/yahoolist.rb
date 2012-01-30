@@ -5,6 +5,30 @@ require 'yahoofinance'
     @stockcodes ||= Stocklist.symbolsonly.map {|element| "#{element['symbol']}"}.join(',')
   end
   
+  def self.limitedsymbols(exchange, sector, industry)
+    cond_industry = (industry != "__ALL__") ? "and industry='#{industry}'" : ""
+    @stockcodes ||= Stocklist.symbolsonly.where("stockexchange='#{exchange}' and sector='#{sector}' #{cond_industry}").map {|element| "#{element['symbol']}"}.join(',')
+  end
+  
+  def self.limitedstocks(exchange, sector, industry)
+     quote_symbols = limitedsymbols(exchange, sector, industry)
+     quote_symbols.gsub(/\s+/, "").strip
+     #puts "limited_symbols" + quote_symbols
+     allstocks = YahooFinance::get_quotes( YahooFinance::ExtendedQuote, quote_symbols )
+  end
+  
+  def self.pagedstocks(exchange, sector, industry)
+    cond_industry = (industry != "__ALL__") ? "and industry='#{industry}'" : ""
+    @stockcodes = Stocklist.select("symbol").where("stockexchange='#{exchange}' and sector='#{sector}' #{cond_industry}").page(1)
+    for i in 1..@stockcodes.num_pages
+      @symbols ||= @stockcodes.page(i).per(200).map {|el| "#{el['symbol'].gsub(/\s+/, "").strip.sub("^", "")}"}.join(',')
+      @symbols.gsub(/\s+/, "").strip
+      puts "Page: #{i} #{@symbols}"
+      retstocks ||= YahooFinance::get_quotes( YahooFinance::ExtendedQuote, @symbols )
+    end
+    retstocks
+  end
+  
   def self.stdstocks (sort)
      puts "sort info: #{sort}"
      quote_type = YahooFinance::StandardQuote
@@ -12,9 +36,9 @@ require 'yahoofinance'
      stdstocks = YahooFinance::get_quotes( quote_type, quote_symbols )
      if (sort == "symbol")
        stdstocks = Hash[stdstocks.sort]
-     elsif (sort == 'lastTrade')
+     elsif (sort == "lastTrade")
        stdstocks = stdstocks.sort_by {|symbol, qt| qt.lastTrade}
-     elsif (sort == 'name')
+     elsif (sort == "name")
        stdstocks = stdstocks.sort_by {|symbol, qt| qt.name}
      end
      stdstocks
@@ -24,7 +48,7 @@ require 'yahoofinance'
      quote_type = YahooFinance::ExtendedQuote
      quote_symbols = allsymbols
      quote_symbols.gsub(/\s+/, "").strip
-     puts "quote_symbols" + quote_symbols
+     #puts "quote_symbols" + quote_symbols
      allstocks = YahooFinance::get_quotes( quote_type, quote_symbols )
   end
   

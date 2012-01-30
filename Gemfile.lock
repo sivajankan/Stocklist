@@ -51,6 +51,10 @@ GEM
       railties (~> 3.0)
       thor (~> 0.14)
     json (1.6.1)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -118,6 +122,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 3.1.0)
   jquery-rails
+  kaminari
   nas-yahoo_stock
   rails (= 3.1.0)
   sass-rails (~> 3.1.0)

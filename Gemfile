@@ -17,6 +17,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+#gem 'will_paginate'
+gem 'kaminari'
 
 # Use unicorn as the web server
 # gem 'unicorn'

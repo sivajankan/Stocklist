@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Blog</title>
+  <title>Stock Monitor</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -22,15 +22,15 @@
      });
      
     //Table scroll
-	jQuery(document).ready(function($)
-	{
-		$('#sctable').tableScroll({height:600});
-	});
+	//jQuery(document).ready(function($)
+	//{
+	//	$('#sctable').tableScroll({height:800});
+	//});
 	
-	$(window).resize(function() {
-		var h = $(window).height() - 200;
-		$(".tablescroll_wrapper").height(h);
-	});
+	//$(window).resize(function() {
+	//	var h = $(window).height() - 200;
+	//	$(".tablescroll_wrapper").height(h);
+	//});
   </script>
 </head>
 <body>

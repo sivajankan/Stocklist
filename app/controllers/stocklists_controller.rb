@@ -2,8 +2,8 @@ class StocklistsController < ApplicationController
   # GET /stocklists
   # GET /stocklists.json
   def index
-    @stocklists = Stocklist.all
-
+    #@stocklists = Stocklist.all
+    @stocklists = Stocklist.page(params[:page]).per(200)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @stocklists }

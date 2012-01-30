@@ -1,16 +1,23 @@
 <h1>Stock Trade Info</h1>
+<div style="width: 1200px; margin: 10px auto; ">
+<%= form_tag yahoolists_path, :method => 'get' do %>
+Exchange<%= select_tag("stockexchange", options_for_select(Stocklist.exchangelist.map {|s| s.stockexchange}, params[:stockexchange])) %>
+Sector<%= select_tag("sector", options_for_select(Stocklist.sectorlist.map {|s| s.sector}, params[:sector])) %>
+Industry<%= select_tag("industry", options_for_select(Stocklist.industrylist.map {|s| s.industry}, params[:industry])) %>
+<%= submit_tag "go", :name => nil %>
+<% end %>
+</div>
 <div style="width: 1300px; margin: 10px;padding-left: 10px">
 <table id='sctable' title="stocklist" class="tbl1 tablrsorter scroll stocktable" cellspacing="1" width='1300px'>
  <thead>
   <tr>
     <th width='150px'>Company Name</th>
     <th width='60px'>Symbol</th>
-    <th width='60px'>Sector</th>
     <th width='70px'>Last Trade</th>
-    <th>PE</th>
-    <th>EPS</th>
-    <th>PEG Ratio</th>
-    <th>Book Value</th>
+    <th width='70px'>PE</th>
+    <th width='70px'>EPS</th>
+    <th width='70px'>PEG Ratio</th>
+    <th width='70px'>Book Value</th>
     <th>Price Per Book</th>
     <th width='120px'>52 Weeks Low - High</th>
     <th>Dividend Yield</th>
@@ -24,7 +31,6 @@
   <tr>
     <th width='150px'>Company Name</th>
     <th width='60px'>Symbol</th>
-    <th width='60px'>Sector</th>
     <th width='70px'>Last Trade</th>
     <th>PE</th>
     <th>EPS</th>
@@ -39,26 +45,39 @@
     <th>EBITDA</th>
   </tr>
  </tfoot>
-<% extstocks = Yahoolist.allstocks() %>
-<% sectors = Yahoolist.sectorindustry %>
-<% extstocks.each do |symbol, qt| %>
+ <tbody>
+<% msg = "" %>
+<% if (params[:stockexchange]).nil?
+	  msg = "Select Stock Exchange, Sector and Industry"
+ elsif (params[:sector]).nil?
+ 	  msg = "Select Sector and Industry"
+ elsif (params[:industry]).nil?
+ 	  msg = "Select Industry"
+ end
+ if (msg.blank?)
+	#extstocks1 = Yahoolist.allstocks()
+	stocks = Yahoolist.pagedstocks(params[:stockexchange], params[:sector], params[:industry])
+	stocks.each do |symbol, qt| %>
   <tr>
   	<td align = 'right'><%= qt.name %></td>
     <td align = 'center'><%= link_to("#{symbol}","http://www.google.com/finance?q=#{symbol}", {:target => "_blank"}) %></td>
-    <td align = 'center'><%= sectors[symbol] %></td>
     <td align = 'right'><%= qt.lastTrade %></td>
-    <td><%= qt.peRatio %></td>
-    <td><%= qt.earningsPerShare %></td>
-    <td><%= qt.pegRatio %></td>
-    <td><%= qt.bookValue %></td>
-    <td><%= qt.pricePerBook %></td>
-    <td><%= qt.weeks52Range %></td>
-    <td><%= qt.dividendYield %></td>
-    <td><%= qt.dividendPerShare %></td>
-    <td><%= qt.movingAve50days %></td>
-    <td><%= qt.movingAve200days %></td>
-    <td><%= qt.ebitda %></td>
+    <td align = 'right'><%= qt.peRatio %></td>
+    <td align = 'right'><%= qt.earningsPerShare %></td>
+    <td align = 'right'><%= qt.pegRatio %></td>
+    <td align = 'right'><%= qt.bookValue %></td>
+    <td align = 'right'><%= qt.pricePerBook %></td>
+    <td align = 'center'><%= qt.weeks52Range %></td>
+    <td align = 'right'><%= qt.dividendYield %></td>
+    <td align = 'right'><%= qt.dividendPerShare %></td>
+    <td align = 'right'><%= qt.movingAve50days %></td>
+    <td align = 'right'><%= qt.movingAve200days %></td>
+    <td align = 'right'><%= qt.ebitda %></td>
   </tr>
+<%   end 
+ else %>
+  <tr><td colspan=14><%= msg %></td></tr>
 <% end %>
+ </tbody>
 </table>
 </div>

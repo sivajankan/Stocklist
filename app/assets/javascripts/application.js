@@ -7,3 +7,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+$(function () {  
+  // load stocks.
+  $('#loadstocks').submit(function () {
+    $.get(this.action, $(this).serialize(), null, 'script');
+    return false;
+  });
+});
