@@ -1,0 +1,59 @@
+var sectors = new Array();
+<% for sector in Stocklist.sectorlist %>
+  sectors.push(new Array('<%= sector.stockexchange %>', '<%= sector.sector %>'));
+<% end %>
+
+var industries = new Array();
+<% for industry in Stocklist.industrylist %>
+   industries.push(new Array('<%= industry.stockexchange %>', '<%= industry.sector%>', '<%= industry.industry%>'));
+<% end %>
+
+
+function exchangeSelected() {
+	var stockexchange = $('#stockexchange').val();
+	var sector = $('#sector').val();
+	$("select#sector").empty();
+  	var options = '';
+  	options += '<option value="">Select Sector</option>';
+  	for (var i = 0; i < sectors.length; i++) {
+  		if (sectors[i][0] == stockexchange) {
+  			var opselected = (sector != "" && sectors[i][1] == sector) ? "selected" : ""
+  			options += '<option value="' + sectors[i][1] +  '" ' + opselected + '>' + sectors[i][1] + '</option>';
+  		}
+   	}
+   	$("select#sector").html(options);
+  	if ($('#sector').contents().length == 1) {
+    	$('#sector').hide();
+  	} else {
+    	$('#sector').show();
+  	}
+  	sectorSelected();
+}
+
+function sectorSelected() {
+	var sector = $('#sector').val();
+	var stockexchange = $('#stockexchange').val();
+	var industry = $('select#industry').val();
+	$("select#industry").empty();
+  	var options = '';
+  	options += '<option value="__ALL__">All</option>';
+  	for (var i = 0; i < industries.length; i++) {
+  		if (industries[i][0] == stockexchange && industries[i][1] == sector) {
+  			var opselected = (industry != "" && industries[i][2] == industry) ? "selected" : ""
+  			options += '<option value="' + industries[i][2] + '" ' + opselected + '>' + industries[i][2] + '</option>';
+  		}
+   	}
+   	$("select#industry").html(options);
+  	if ($('#industry').contents().length == 1) {
+    	$('#industry').hide();
+  	} else {
+    	$('#industry').show();
+  	}
+}
+jQuery(document).ready(function($){
+	exchangeSelected();
+	
+	$('select#stockexchange').change(function() { exchangeSelected();});
+	$('select#sector').change(function() { sectorSelected();});
+});
+
