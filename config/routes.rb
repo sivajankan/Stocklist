@@ -1,8 +1,6 @@
 Blog::Application.routes.draw do
   resources :yahoolists
 
-  resources :stocklist1s
-
   resources :stocklists
 
 #  get "home/index"

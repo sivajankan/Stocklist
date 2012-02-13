@@ -1,10 +1,10 @@
 var sectors = new Array();
-<% for sector in Stocklist.sectorlist %>
+<% for sector in Stocklist.sectorlistall %>
   sectors.push(new Array('<%= sector.stockexchange %>', '<%= sector.sector %>'));
 <% end %>
 
 var industries = new Array();
-<% for industry in Stocklist.industrylist %>
+<% for industry in Stocklist.industrylistall %>
    industries.push(new Array('<%= industry.stockexchange %>', '<%= industry.sector%>', '<%= industry.industry%>'));
 <% end %>
 

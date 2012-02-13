@@ -2,13 +2,18 @@ class YahoolistsController < ApplicationController
   # GET /yahoolists
   # GET /yahoolists.json
   def index
-    @yahoolists = Yahoolist.all
+    @stockexchange = Stocklist.exchangelistall
+    @sector = Stocklist.sectorlistall  #No __ALL__ for sectors
+    #@sector += Stocklist.select("sector, '__ALL__' as stockexchange").group("sector")
+    @industry = Stocklist.industrylistall
+    
+    @stocks = Yahoolist.pagedstocks(params[:stockexchange], params[:sector], params[:industry])
  
     #TODO 
     #Collect stock quotes for all together
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @yahoolists }
+      format.json { render json: @stocks }
     end
   end
 

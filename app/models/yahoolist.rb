@@ -18,8 +18,9 @@ require 'yahoofinance'
   end
   
   def self.pagedstocks(exchange, sector, industry)
+    cond_exchange = (exchange != "__ALL__") ? "stockexchange='#{exchange}' and " : ""
     cond_industry = (industry != "__ALL__") ? "and industry='#{industry}'" : ""
-    @stockcodes = Stocklist.select("symbol").where("stockexchange='#{exchange}' and sector='#{sector}' #{cond_industry}").page(1)
+    @stockcodes = Stocklist.select("symbol").where("#{cond_exchange} sector='#{sector}' #{cond_industry}").page(1)
     for i in 1..@stockcodes.num_pages
       @symbols ||= @stockcodes.page(i).per(200).map {|el| "#{el['symbol'].gsub(/\s+/, "").strip.sub("^", "")}"}.join(',')
       @symbols.gsub(/\s+/, "").strip

@@ -1,11 +1,8 @@
 class JavascriptsController < ApplicationController
-  #FIXME NOT USED
-  def dynamic_sectors_for_exchange
-    @sectors = Stocklist.sectorlist
-  end
-  
-  #FIXME NOT USED
-  def dynamic_industry_for_sectors
+  #FIXME NOT_USED
+  def dynamic_sector
+    @sectors = Stocklist.sectorlistall
     @industry = Stocklist.industrylist
   end
+
 end
