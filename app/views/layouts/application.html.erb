@@ -20,7 +20,26 @@
 			$(this).children().removeClass('rowhighlight');
 		});
      });
+  
+ $(document).ready(function() 
+ {
+   $('tbody tr').each(function() 
+   {
+   	 //if (this.children[2].textContent > 1.0)
+     if (Number(this.children[2].textContent) < Number(this.children[12].textContent) //lower than 50 days average
+     	&& Number(this.children[10].textContent) > 0 //divident yield is positive
+     	&& Number(this.children[4].textContent) > 0  //EPS positive
+     	&& Number(this.children[13].textContent) > 0) //EBITA not negative
+     {
+        $(this).children().addClass('level1');
+     } else if (Number(this.children[2].textContent) < 5.0 && Number(this.children[10].textContent) > 0) {
+     	$(this).children().addClass('divyield1');
+     } else if (Number(this.children[2].textContent) < 10.0 && Number(this.children[10].textContent) > 0) {
+     	$(this).children().addClass('divyield2');
+     }
      
+   });
+ });
     //Table scroll
 	//jQuery(document).ready(function($)
 	//{
