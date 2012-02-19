@@ -6,50 +6,91 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <script>
-    //Table sorter
-    $(document).ready(function() 
-    { 
-        $('table').tablesorter( {sortList: [[0,0],[1,0]]}); 
-    }); 
-    
- 	//Table row highlight
- 	$(document).ready(function(){
-		$('tbody tr').hover(function(){
-			$(this).children().addClass('rowhighlight');
-		},function(){
-			$(this).children().removeClass('rowhighlight');
+	$(document).ready(function() 
+	{
+		$("#pushpicked").click(function() {
+			alert("process started");
+			var collection=""
+			$("tbody tr").each(function() {
+				if($(this).find("#picked").is(":checked"))
+				   collection += $(this).find('#symbol').text() + "|";
+			});
+			alert (collection);
 		});
-     });
+	});
+
+//Table row highlight
+$(document).ready(function(){
+	$('#sctable tbody tr').hover(function(){
+		$(this).children().addClass('rowhighlight');
+	},function(){
+		$(this).children().removeClass('rowhighlight');
+	});
+ });
   
  $(document).ready(function() 
  {
-   $('tbody tr').each(function() 
-   {
-   	 //if (this.children[2].textContent > 1.0)
-     if (Number(this.children[2].textContent) < Number(this.children[12].textContent) //lower than 50 days average
-     	&& Number(this.children[10].textContent) > 0 //divident yield is positive
-     	&& Number(this.children[4].textContent) > 0  //EPS positive
-     	&& Number(this.children[13].textContent) > 0) //EBITA not negative
-     {
-        $(this).children().addClass('level1');
-     } else if (Number(this.children[2].textContent) < 5.0 && Number(this.children[10].textContent) > 0) {
-     	$(this).children().addClass('divyield1');
-     } else if (Number(this.children[2].textContent) < 10.0 && Number(this.children[10].textContent) > 0) {
-     	$(this).children().addClass('divyield2');
-     }
-     
-   });
+   	$('#sctable tbody tr').each(function() 
+   	{
+   		var level = 0;
+   		//Div yield > 0
+   	 	if (Number($(this).find("#divyield").text())>0) {
+   	 		level += 1;
+   	 		//last trade lower than 50days ave
+   	 		if (Number($(this).find("#lasttrade").text())<Number($(this).find("#50dave").text())) {
+   	 			level += 1;
+   	 			//EPS > 0
+   	 			if (Number($(this).find("#eps").text())>0) {
+   	 				level += 1;
+   	 				//EBITA > 0
+   	 				if (Number($(this).find("#ebita").text())>0) {
+   	 					level += 1;
+   	 					//last trade < 50.0
+   	 					if (Number($(this).find("#lasttrade").text())<20.0) {
+   	 						level += 1;
+   	 						//last trade < 20
+   	 						if (Number($(this).find("#lasttrade").text())<20.0) {
+   	 							level += 1;
+   	 							//last trade < 10
+   	 							if (Number($(this).find("#lasttrade").text())<10.0) {
+   	 								level += 1;
+   	 								//last trade < 5
+   	 								if (Number($(this).find("#lasttrade").text())<5.0) level += 1;
+   	 							}
+   	 						}
+   	 					}
+   	 				}
+   	 			}
+   	 		}
+   	 	}
+ 
+ 		var classname = "level"+Math.pow(2, (level-1));
+ 		$(this).children().addClass(classname);
+ 		
+ 		//if (this.children[2].textContent > 1.0)
+		// if (Number(this.children[2].textContent) < Number(this.children[12].textContent) //lower than 50 days average
+ 			// && Number(this.children[10].textContent) > 0 //divident yield is positive
+ 			// && Number(this.children[4].textContent) > 0  //EPS positive
+ 			// && Number(this.children[13].textContent) > 0) //EBITA not negative
+ 		// {
+    		// $(this).children().addClass('level1');
+ 		// } else if (Number(this.children[2].textContent) < 5.0 && Number(this.children[10].textContent) > 0) {
+ 			// $(this).children().addClass('divyield1');
+ 		// } else if (Number(this.children[2].textContent) < 10.0 && Number(this.children[10].textContent) > 0) {
+ 			// $(this).children().addClass('divyield2');
+     	// } 
+   	});
  });
-    //Table scroll
-	//jQuery(document).ready(function($)
-	//{
-	//	$('#sctable').tableScroll({height:800});
-	//});
-	
-	//$(window).resize(function() {
-	//	var h = $(window).height() - 200;
-	//	$(".tablescroll_wrapper").height(h);
-	//});
+//Table scroll
+//jQuery(document).ready(function($)
+//{
+//	$('#sctable').tableScroll({height:800});
+//});
+
+//$(window).resize(function() {
+//	var h = $(window).height() - 200;
+//	$(".tablescroll_wrapper").height(h);
+//});
   </script>
 </head>
 <body>

@@ -1,0 +1,29 @@
+<%= form_for(@toppick) do |f| %>
+  <% if @toppick.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@toppick.errors.count, "error") %> prohibited this toppick from being saved:</h2>
+
+      <ul>
+      <% @toppick.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :symbol %><br />
+    <%= f.text_field :symbol %>
+  </div>
+  <div class="field">
+    <%= f.label :lasttrade %><br />
+    <%= f.text_field :lasttrade %>
+  </div>
+  <div class="field">
+    <%= f.label :pickeddate %><br />
+    <%= f.date_select :pickeddate %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

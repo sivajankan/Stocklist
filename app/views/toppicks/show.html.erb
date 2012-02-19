@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Symbol:</b>
+  <%= @toppick.symbol %>
+</p>
+
+<p>
+  <b>Lasttrade:</b>
+  <%= @toppick.lasttrade %>
+</p>
+
+<p>
+  <b>Pickeddate:</b>
+  <%= @toppick.pickeddate %>
+</p>
+
+
+<%= link_to 'Edit', edit_toppick_path(@toppick) %> |
+<%= link_to 'Back', toppicks_path %>

@@ -61,14 +61,16 @@ colgroup {
     background-color: #EEEEED !important;
 }
 
-.level1 {
-	background-color: #FFFFCC !important;
-}
+.level1 {background-color: #FFFFEB !important;}
+.level2 {background-color: #FFFF99 !important;}
+.level4 {background-color: #CCFFCC !important;}
+.level8 {background-color: #99FF99 !important;}
 
-.divyield1 {
-	background-color: #8DBDD8 !important;
-}
+.level16 {background-color: #D1E0FF !important;}
+.level32 {background-color: #6699FF !important;}
+.level64 {background-color: #FFD1D1 !important;}
+.level128 {background-color: #FF6666 !important;}
 
-.divyield2 {
-	background-color: #8DBD00 !important;
-}
+.level258 {background-color: #F5CCF5 !important;}
+.level512 {background-color: #CC00CC !important;}
+

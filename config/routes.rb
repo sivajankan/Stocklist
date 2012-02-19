@@ -1,4 +1,6 @@
 Blog::Application.routes.draw do
+  resources :toppicks
+
   resources :yahoolists
 
   resources :stocklists

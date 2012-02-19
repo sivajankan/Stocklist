@@ -5,12 +5,28 @@ Exchange<%= select_tag("stockexchange", options_for_select(@stockexchange.map {|
 Sector<%= select_tag("sector", options_for_select(@sector.map {|s| s.sector}, params[:sector])) %>
 Industry<%= select_tag("industry", options_for_select(@industry.map {|s| s.industry}, params[:industry])) %>
 <%= submit_tag "go", :name => nil %>
+<input type="button" id="pushpicked" name="pushpicked" value="PushPicked" title="PushPicked">
 <% end %>
+<table width="800px">
+	<tr>
+		<td bgcolor="#FFFFEB">level1</td>
+		<td bgcolor="#FFFF99">level2</td>
+		<td bgcolor="#CCFFCC">level3</td>
+		<td bgcolor="#99FF99">level4</td>
+		<td bgcolor="#D1E0FF">level5</td>
+		<td bgcolor="#6699FF">level6</td>
+		<td bgcolor="#FFD1D1">level7</td>
+		<td bgcolor="#FF6666">level8</td>
+		<td bgcolor="#F5CCF5">level9</td>
+		<td bgcolor="#CC00CC">level10</td>
+	</tr>
+</table>
 </div>
 <div style="width: 1300px; margin: 10px;padding-left: 10px">
 <table id='sctable' class="tbl1 tablrsorter scroll stocktable" cellspacing="1" width='1300px'>
  <thead>
   <tr>
+  	<th width="20px">Select</th>
     <th width='150px'>Company Name</th>
     <th width='60px'>Symbol</th>
     <th width='70px'>Last Trade</th>
@@ -30,6 +46,7 @@ Industry<%= select_tag("industry", options_for_select(@industry.map {|s| s.indus
  </thead>
  <tfoot>
   <tr>
+  	<th width="20px">Select</th>
     <th width='150px'>Company Name</th>
     <th width='60px'>Symbol</th>
     <th width='70px'>Last Trade</th>
@@ -40,8 +57,8 @@ Industry<%= select_tag("industry", options_for_select(@industry.map {|s| s.indus
     <th>Price Per Book</th>
     <th width='60px'>52 Wks Low </th>
     <th width='60px'>52 Wks High</th>
-    <th>Dividend Yield</th>
-    <th>Dividend Per Share</th>
+    <th>Div Yield</th>
+    <th>Div Per Share</th>
     <th>Moving Avg 50 Days</th>
     <th>Moving Avg 200 Days</th>
     <th>EBITDA</th>
@@ -49,36 +66,37 @@ Industry<%= select_tag("industry", options_for_select(@industry.map {|s| s.indus
  </tfoot>
  <tbody>
 <% msg = "" %>
-<% if (params[:stockexchange]).nil?
+<% if params[:stockexchange].nil? || params[:stockexchange].blank?
 	  msg = "Select Stock Exchange, Sector and Industry"
- elsif (params[:sector]).nil?
+ elsif params[:sector].nil? || params[:sector].blank?
  	  msg = "Select Sector and Industry"
- elsif (params[:industry]).nil?
+ elsif params[:industry].nil? || params[:industry].blank?
  	  msg = "Select Industry"
  end
  if (msg.blank?)
 	@stocks.each do |symbol, qt| %>
   <tr>
-  	<td align = 'right'><%= qt.name %></td>
-    <td align = 'center'><%= link_to("#{symbol}","http://www.google.com/finance?q=#{symbol}", {:target => "_blank"}) %></td>
-    <td align = 'right'><%= qt.lastTrade %></td>
-    <td align = 'right'><%= qt.peRatio %></td>
-    <td align = 'right'><%= qt.earningsPerShare %></td>
-    <td align = 'right'><%= qt.pegRatio %></td>
-    <td align = 'right'><%= qt.bookValue %></td>
-    <td align = 'right'><%= qt.pricePerBook %></td>
+  	<td align="center" id='pick'><input type='checkbox' id='picked' name='picked'/></td>
+  	<td align = 'right' id='companyname'><%= qt.name %></td>
+    <td align = 'center' id='symbol'><%= link_to("#{symbol}","http://www.google.com/finance?q=#{symbol}", {:target => "_blank"}) %></td>
+    <td align = 'right' id='lasttrade'><%= qt.lastTrade %></td>
+    <td align = 'right' id='pe'><%= qt.peRatio %></td>
+    <td align = 'right' id='eps'><%= qt.earningsPerShare %></td>
+    <td align = 'right' id='peg'><%= qt.pegRatio %></td>
+    <td align = 'right' id='bookvalue'><%= qt.bookValue %></td>
+    <td align = 'right' id='priveperbook'><%= qt.pricePerBook %></td>
     <% qt.weeks52Range =~ /-/ %>
-    <td align = 'center'><%= $` %></td>
-    <td align = 'center'><%= $' %></td>
-    <td align = 'right' title="<%= qt.dividendPayDate %>"><%= qt.dividendYield %></td>
-    <td align = 'right'><%= qt.dividendPerShare %></td>
-    <td align = 'right'><%= qt.movingAve50days %></td>
-    <td align = 'right'><%= qt.movingAve200days %></td>
-    <td align = 'right'><%= qt.ebitda %></td>
+    <td align = 'center' id='52low'><%= $` %></td>
+    <td align = 'center' id-'52high'><%= $' %></td>
+    <td align = 'right' id='divyield' title="<%= qt.dividendPayDate %>"><%= qt.dividendYield %></td>
+    <td align = 'right' id='divpershare'><%= qt.dividendPerShare %></td>
+    <td align = 'right' id='50dave'><%= qt.movingAve50days %></td>
+    <td align = 'right' id='200dave'><%= qt.movingAve200days %></td>
+    <td align = 'right' id='ebita'><%= qt.ebitda %></td>
   </tr>
 <%   end 
  else %>
-  <tr><td colspan=14><%= msg %></td></tr>
+  <tr><td colspan=15><%= msg %></td></tr>
 <% end %>
  </tbody>
 </table>
