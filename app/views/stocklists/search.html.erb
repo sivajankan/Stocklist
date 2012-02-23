@@ -1,0 +1,64 @@
+<h1>Stock Enlisted</h1>
+<div style="width: 1200px; margin: 10px auto; ">
+<%= form_tag :stocksearch_path, :method => 'get' do %>
+<div style="width: 1200px; margin: 10px auto; >
+<%= label(:post, :searchsymbol, "Symbol") %>
+<input type="text" id="searchsymbol" name="searchsymbol" size="20" value='<%= "#{params[:searchsymbol]}" %>' />
+<%= submit_tag "Search", :name => nil %>
+</div>
+<% end %>
+</div>
+<div classz="scroll" style="width: 1200px; margin: 10px auto;">
+<% if @stocklist %>
+<%= paginate @stocklist %>
+<% end %>
+<table id='sctable' title='stocklist' class="tablesorter stocktable tbl1 scroll" cellspacing="1" width="1100px">
+ <thead>
+  <tr>
+    <th width="220">Name</th>
+    <th width="80">Symbol</th>
+    <th width="80">Sector</th>
+    <th width="80">Industry</th>
+    <th width="80">Market Cap</th>
+    <th width="80">IPO Year</th>
+    <th width="80">StockExch</th>
+    <th width="120">Actions</th>
+  </tr>
+ </thead>
+ <tfoot>
+  <tr>
+    <th width="220">Name</th>
+    <th width="80">Symbol</th>
+    <th width="80">Sector</th>
+    <th width="80">Industry</th>
+    <th width="80">Market Cap</th>
+    <th width="80">IPO Year</th>
+    <th width="80">StockExch</th>
+    <th width="120">Actions</th>
+  </tr>
+ </tfoot>
+ <tbody>
+<% if @stocklist %>
+<%  @stocklist.each do |stocklist| %>
+  <tr>
+    <td><%= link_to stocklist.name, stocklist%></td>
+    <td><%= link_to("#{stocklist.symbol}","http://www.google.com/finance?q=#{stocklist.symbol}", {:target => "_blank"}) %></a></td>
+    <td><%= stocklist.sector %></td>
+    <td><%= stocklist.industry %></td>
+    <td><%= stocklist.marketcap %></td>
+    <td><%= stocklist.ipoyear %></td>
+    <td><%= stocklist.stockexchange %></td>
+    <td align='center'><%= link_to image_tag('edit.jpg', :alt => 'Edit'), edit_stocklist_path(stocklist) %></td>
+  </tr>
+<% end %>
+<% end %>
+ </tbody>
+</table>
+<% if @stocklist %>
+<%= paginate @stocklist %>
+<% end %>
+</div>
+<br />
+
+<%= link_to 'New Stocklist', new_stocklist_path %>
+

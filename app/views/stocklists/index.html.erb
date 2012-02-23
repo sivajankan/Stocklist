@@ -4,7 +4,7 @@
 Exchange<%= select_tag("stockexchange", options_for_select(Stocklist.exchangelist.map {|s| s.stockexchange}, params[:stockexchange])) %>
 Sector<%= select_tag("sector", options_for_select(Stocklist.sectorlist.map {|s| s.sector}, params[:sector])) %>
 Industry<%= select_tag("industry", options_for_select(Stocklist.industrylist.map {|s| s.industry}, params[:industry])) %>
-<%= submit_tag "go", :name => nil %>
+<%= submit_tag "Go", :name => nil %>
 <% end %>
 </div>
 <div classz="scroll" style="width: 1200px; margin: 10px auto;">

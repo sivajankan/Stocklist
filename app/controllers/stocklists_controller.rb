@@ -80,4 +80,18 @@ class StocklistsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # GET /stocklists/search
+  # GET /stocklists/search.json
+  def search 
+    @stocklist
+    if !params[:searchsymbol].blank?
+        @stocklist = Stocklist.where("symbol like '%#{params[:searchsymbol]}%'").page(params[:page]).per(30)
+    end
+    
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @stocklist }
+    end
+  end
 end
