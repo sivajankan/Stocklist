@@ -24,10 +24,22 @@ require 'yahoofinance'
     for i in 1..@stockcodes.num_pages
       @symbols ||= @stockcodes.page(i).per(200).map {|el| "#{el['symbol'].gsub(/\s+/, "").strip.sub("^", "")}"}.join(',')
       @symbols.gsub(/\s+/, "").strip
-      puts "Page: #{i} #{@symbols}"
+      #puts "Page: #{i} #{@symbols}"
       retstocks ||= YahooFinance::get_quotes( YahooFinance::ExtendedQuote, @symbols )
     end
     retstocks
+  end
+  
+  def self.toppickedstocks(pickeddate)
+    cond_pickeddate = (pickeddate.nil? || pickeddate.blank?) ? "" : "pickeddate='#{pickeddate}'"
+    @pickedstocks = Toppick.select("symbol").where(" #{cond_pickeddate}").page(1)
+    for i in 1..@pickedstocks.num_pages
+      @symbols ||= @pickedstocks.page(i).per(200).map {|el| "#{el['symbol'].gsub(/\s+/, "").strip.sub("^", "")}"}.join(',')
+      @symbols.gsub(/\s+/, "").strip
+      #puts "Page: #{i} #{@symbols}"
+      retstocks ||= YahooFinance::get_quotes( YahooFinance::ExtendedQuote, @symbols )
+    end
+    retstocks    
   end
   
   def self.stdstocks (sort)

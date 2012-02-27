@@ -80,4 +80,37 @@ class ToppicksController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def addpicks
+    newpicks = params[:newpicks]
+    todaydate = Date.today
+    @added = ""
+    #split ran throw each entry
+    newpicks.split('~').each do |el| 
+      el.match(/-/)
+      @toppick = Toppick.new
+      @toppick.symbol = $`
+      @toppick.lasttrade = $'
+      @toppick.pickeddate = todaydate
+      @toppick.save
+      @added ||= @toppick
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to :addpicks_path }
+      format.json { render json: "Success",status: :ok }
+    end  
+  end
+  
+  def yahooindex
+    @stocks = Yahoolist.toppickedstocks(params[:pickeddate])
+    @pickeddate = Toppick.pickeddateonly
+    @exchanges = Toppick.exchanges
+    @lasttrades = Toppick.lasttrades
+    
+    respond_to do |format|
+      format.html # yahooindex.html.erb
+      format.json { render json: @stocks }
+    end
+  end
 end

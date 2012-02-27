@@ -7,7 +7,12 @@ Blog::Application.routes.draw do
 
   #  get "home/index"
   root :to => "home#index"
-  match 'search', :to => 'stocklists#search', :as => :stocksearch_path
+  #match 'search', :to => 'stocklists#search', :as => :stocksearch_path
+  #match 'addpicks', :to => 'toppicks#addpicks', :as => :addpicks_path
+
+  match '/stocklist/search', :controller => 'stocklists', :action => 'search', :as => :stocksearch_path
+  match '/toppick/yahooindex', :controller => 'toppicks', :action => 'yahooindex', :as => :toppicksyahoo_path
+  match '/toppick/addpicks', :controller => 'toppicks', :action => 'addpicks', :as => :addpicks_path
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

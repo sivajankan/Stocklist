@@ -2,7 +2,7 @@ class CreateToppicks < ActiveRecord::Migration
   def change
     create_table :toppicks do |t|
       t.string :symbol
-      t.number :lasttrade
+      t.float :lasttrade
       t.date :pickeddate
 
       t.timestamps

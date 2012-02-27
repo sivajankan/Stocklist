@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120123004023) do
+ActiveRecord::Schema.define(:version => 20120219061718) do
 
   create_table "stocklists", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20120123004023) do
     t.string   "marketcap"
     t.date     "ipoyear"
     t.string   "stockexchange"
+  end
+
+  create_table "toppicks", :force => true do |t|
+    t.string   "symbol"
+    t.float    "lasttrade"
+    t.date     "pickeddate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "yahoolists", :force => true do |t|

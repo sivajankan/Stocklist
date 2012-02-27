@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Stock Monitor</title>
+  <title>Stock Monitor <%= yield :title %></title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -9,13 +9,14 @@
 	$(document).ready(function() 
 	{
 		$("#pushpicked").click(function() {
-			alert("process started");
+			//alert("process started");
 			var collection=""
 			$("tbody tr").each(function() {
 				if($(this).find("#picked").is(":checked"))
-				   collection += $(this).find('#symbol').text() + "|";
+				   collection += $(this).find('#symbol').text() + "-" +$(this).find('#lasttrade').text() + "~";
 			});
-			alert (collection);
+			$.ajax({type: 'POST', url: "/toppick/addpicks", data: "newpicks="+collection, success: function(){alert("Your picks added!");}, error: function(){ alert ("Added?")}});
+			return false;
 		});
 	});
 
