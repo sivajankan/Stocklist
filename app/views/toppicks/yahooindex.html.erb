@@ -1,0 +1,99 @@
+<% title "Toppicks Yahoo Stock Info"%>
+<h1>Stock Trade Info</h1>
+<div style="width: 1200px; margin: 10px auto; ">
+<%= form_tag :toppicksyahoo_path, :method => 'get' do %>
+Pickeddate<%= select_tag("pickeddate", options_for_select(@pickeddate.map {|pd| pd.pickeddate}, params[:pickeddate])) %>
+<%= submit_tag "Go", :name => nil %>
+<% end %>
+<table width="800px">
+	<tr>
+		<td bgcolor="#FFFFEB">level1</td>
+		<td bgcolor="#FFFF99">level2</td>
+		<td bgcolor="#CCFFCC">level3</td>
+		<td bgcolor="#99FF99">level4</td>
+		<td bgcolor="#D1E0FF">level5</td>
+		<td bgcolor="#6699FF">level6</td>
+		<td bgcolor="#FFD1D1">level7</td>
+		<td bgcolor="#FF6666">level8</td>
+		<td bgcolor="#F5CCF5">level9</td>
+		<td bgcolor="#CC00CC">level10</td>
+	</tr>
+</table>
+</div>
+<div style="width: 1300px; margin: 10px;padding-left: 10px">
+<table id='sctable' class="tbl1 tablrsorter scroll stocktable" cellspacing="1" width='1300px'>
+ <thead>
+  <tr>
+    <th width='150px'>Company Name</th>
+    <th width='60px'>Symbol</th>
+    <th width='70px'>Picked Trade</th>
+    <th width='70px'>Last Trade</th>
+    <th width='70px'>PE</th>
+    <th width='70px'>EPS</th>
+    <th width='70px'>PEG Ratio</th>
+    <th width='70px'>Book Value</th>
+    <th>Price Per Book</th>
+    <th width='60px'>52Wks Low </th>
+    <th width='60px'>52Wks High</th>
+    <th>Dividend Yield</th>
+    <th>Dividend Per Share</th>
+    <th>Moving Avg 50 Days</th>
+    <th>Moving Avg 200 Days</th>
+    <th>EBITDA</th>
+  </tr>
+ </thead>
+ <tfoot>
+  <tr>
+    <th width='150px'>Company Name</th>
+    <th width='60px'>Symbol</th>
+    <th width='70px'>Picked Trade</th>
+    <th width='70px'>Last Trade</th>
+    <th>PE</th>
+    <th>EPS</th>
+    <th>PEG Ratio</th>
+    <th>Book Value</th>
+    <th>Price Per Book</th>
+    <th width='60px'>52 Wks Low </th>
+    <th width='60px'>52 Wks High</th>
+    <th>Div Yield</th>
+    <th>Div Per Share</th>
+    <th>Moving Avg 50 Days</th>
+    <th>Moving Avg 200 Days</th>
+    <th>EBITDA</th>
+  </tr>
+ </tfoot>
+ <tbody>
+<% msg = "" %>
+<% if params[:pickeddate].nil? || params[:pickeddate].blank?
+	  msg = "Select a date for short list"
+   end
+ if (msg.blank?)
+	@stocks.each do |symbol, qt| %>
+  <tr>
+  	<td align = 'right' id='companyname'><%= qt.name %></td>
+    <td align = 'center' id='symbol' title="<%= @exchanges[symbol] %>">
+    	<%= link_to("#{symbol}","http://www.google.com/finance?q=#{symbol}", {:target => "_blank"}) %>
+    </td>
+    <td align = 'right' id='pickedtrade'><%= @lasttrades[symbol] %></td>
+    <td align = 'right' id='lasttrade'><%= qt.lastTrade %></td>
+    <td align = 'right' id='pe'><%= qt.peRatio %></td>
+    <td align = 'right' id='eps'><%= qt.earningsPerShare %></td>
+    <td align = 'right' id='peg'><%= qt.pegRatio %></td>
+    <td align = 'right' id='bookvalue'><%= qt.bookValue %></td>
+    <td align = 'right' id='priveperbook'><%= qt.pricePerBook %></td>
+    <% qt.weeks52Range =~ /-/ %>
+    <td align = 'center' id='52low'><%= $` %></td>
+    <td align = 'center' id-'52high'><%= $' %></td>
+    <td align = 'right' id='divyield' title="<%= qt.dividendPayDate %>"><%= qt.dividendYield %></td>
+    <td align = 'right' id='divpershare'><%= qt.dividendPerShare %></td>
+    <td align = 'right' id='50dave'><%= qt.movingAve50days %></td>
+    <td align = 'right' id='200dave'><%= qt.movingAve200days %></td>
+    <td align = 'right' id='ebita'><%= qt.ebitda %></td>
+  </tr>
+<%   end 
+ else %>
+  <tr><td colspan=16><%= msg %></td></tr>
+<% end %>
+ </tbody>
+</table>
+</div>
